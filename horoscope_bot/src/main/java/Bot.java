@@ -14,6 +14,11 @@ import java.util.ArrayList;
 public class Bot extends TelegramLongPollingBot {
     private int startday;
     private int language;
+    private int predicTheme;
+    private String novelPos;
+    private String novelVarA;
+    private String novelVarB;
+    private String novelVarC;
     private int[] zodiak_code = get_zodiak_code();
 
     public void setStartday(int startday) {
@@ -42,7 +47,329 @@ public class Bot extends TelegramLongPollingBot {
             e.printStackTrace(); //если не отправлено, бот выдает ошибку
         }
     }
+    public void keyboard2x0(Message message,String text, String keyOne, String keyTwo){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
 
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+
+        keyboard.add(keyboardFirstRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard2x1(Message message,String text, String keyOne, String keyTwo, String keyThree){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(keyThree);
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard2x2(Message message,String text, String keyOne, String keyTwo, String keyThree, String keyFour){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(keyThree);
+        keyboardSecondRow.add(keyFour);
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard2x3(Message message, String text, String keyOne, String keyTwo, String keyThree, String keyFour, String keyFive){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(keyThree);
+        keyboardSecondRow.add(keyFour);
+        keyboardSecondRow.add(keyFive);
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard3x0(Message message, String text, String keyOne, String keyTwo, String keyThree){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        keyboardFirstRow.add(keyThree);
+
+        keyboard.add(keyboardFirstRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard3x1(Message message, String text, String keyOne, String keyTwo, String keyThree, String keyFour){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        keyboardFirstRow.add(keyThree);
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(keyFour);
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard3x2(Message message, String text, String keyOne, String keyTwo, String keyThree, String keyFour, String keyFive){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        keyboardFirstRow.add(keyThree);
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(keyFour);
+        keyboardSecondRow.add(keyFive);
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard3x3(Message message, String text, String keyOne, String keyTwo, String keyThree, String keyFour, String keyFive, String keySix){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        keyboardFirstRow.add(keyThree);
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(keyFour);
+        keyboardSecondRow.add(keyFive);
+        keyboardSecondRow.add(keySix);
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard2x1x1(Message message,String text, String keyOne, String keyTwo, String keyThree, String keyFour){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(keyThree);
+        KeyboardRow keyboardThirdRow = new KeyboardRow();
+        keyboardThirdRow.add(keyFour);
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        keyboard.add(keyboardThirdRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void keyboard2x1x1x1(Message message,String text, String keyOne, String keyTwo, String keyThree, String keyFour, String keyFive){
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+
+        ReplyKeyboardMarkup replyKeyboardMarkup = new
+                ReplyKeyboardMarkup();
+        sendMessage.setReplyMarkup(replyKeyboardMarkup);
+        replyKeyboardMarkup.setSelective(true);
+        replyKeyboardMarkup.setResizeKeyboard(true);
+        replyKeyboardMarkup.setOneTimeKeyboard(false);
+
+        List<KeyboardRow> keyboard = new ArrayList<>();
+
+        KeyboardRow keyboardFirstRow = new KeyboardRow();
+        keyboardFirstRow.add(keyOne);
+        keyboardFirstRow.add(keyTwo);
+        KeyboardRow keyboardSecondRow = new KeyboardRow();
+        keyboardSecondRow.add(keyThree);
+        KeyboardRow keyboardThirdRow = new KeyboardRow();
+        keyboardThirdRow.add(keyFour);
+        KeyboardRow keyboardFourthRow = new KeyboardRow();
+        keyboardFourthRow.add(keyFive);
+
+        keyboard.add(keyboardFirstRow);
+        keyboard.add(keyboardSecondRow);
+        keyboard.add(keyboardThirdRow);
+        keyboard.add(keyboardFourthRow);
+        replyKeyboardMarkup.setKeyboard(keyboard);
+
+        sendMessage.setChatId(message.getChatId().toString());
+        sendMessage.setText(text);
+        try {
+            execute(sendMessage); //отправка сообщения
+        } catch (TelegramApiException e1){
+            e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
     public void sendSti(Message message, String stickerId){
         InputFile sticker = new InputFile();
         sticker.setMedia(stickerId);
@@ -75,7 +402,7 @@ public class Bot extends TelegramLongPollingBot {
         int nowdate = getNowDate.getNow();
 
         try{
-            massive = input.split(", ");
+            massive = input.split("; ");
             String first = massive[0];
             String second = massive[1];
 
@@ -95,6 +422,13 @@ public class Bot extends TelegramLongPollingBot {
                     sendSti(message, "CAACAgQAAxkBAAEI6MhkWTmv7_8k42nNSNnu-VIFu29lEAACPgwAAp3eWVBGHn6omULBrS8E");
                     sendMsg(message, "You fools, don't approach each other");
                 }
+                if (language != 1 && language != 2  ){
+                    sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
+                    keyboard2x0(message, "Before starting to fully use the bot,please select your language. \n" +
+                            "Перед початком повноцінного використання бота, будь ласка, оберіть свою мову",
+                            "Українська","English");
+                    System.out.println("Не обрана мова/Not selected language");
+                }
             }
             else {
                 if (language == 1) {
@@ -104,6 +438,13 @@ public class Bot extends TelegramLongPollingBot {
                 if (language == 2) {
                     sendSti(message, "CAACAgQAAxkBAAEI6MhkWTmv7_8k42nNSNnu-VIFu29lEAACPgwAAp3eWVBGHn6omULBrS8E");
                     sendMsg(message, "Your compatibility:" + rnd.nextInt(-100, 100) + "%");
+                }
+                if (language != 1 && language != 2){
+                    sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
+                    keyboard2x0(message, "Before starting to fully use the bot,please select your language. \n" +
+                                    "Перед початком повноцінного використання бота, будь ласка, оберіть свою мову",
+                            "Українська","English");
+                    System.out.println("Не обрана мова/Not selected language");
                 }
             }
         } catch(ArrayIndexOutOfBoundsException e) {
@@ -123,125 +464,127 @@ public class Bot extends TelegramLongPollingBot {
             switch (input) {
                 case "/start", "Змінити мову/Change language" -> {
                     System.out.println("Вибір мови/language selection");
-                    SendMessage sendMessage = new SendMessage();
-                    sendMessage.enableMarkdown(true);
 
-                    ReplyKeyboardMarkup replyKeyboardMarkup = new
-                            ReplyKeyboardMarkup();
-                    sendMessage.setReplyMarkup(replyKeyboardMarkup);
-                    replyKeyboardMarkup.setSelective(true);
-                    replyKeyboardMarkup.setResizeKeyboard(true);
-                    replyKeyboardMarkup.setOneTimeKeyboard(false);
-
-                    List<KeyboardRow> keyboard = new ArrayList<>();
-
-                    KeyboardRow keyboardFirstRow = new KeyboardRow();
-                    keyboardFirstRow.add("Українська");
-                    keyboardFirstRow.add("English");
-
-                    keyboard.add(keyboardFirstRow);
-                    replyKeyboardMarkup.setKeyboard(keyboard);
-
-                    sendMessage.setChatId(message.getChatId().toString());
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
-                    sendMessage.setText("Будь ласка, для початку, оберіть мову");
+                    keyboard2x0(message,"Будь ласка, для початку, оберіть мову","Українська","English" );
                     sendMsg(message, "Please select a language first");
-                    try {
-                        execute(sendMessage); //отправка сообщения
-                    } catch (TelegramApiException e1){
-                        e1.printStackTrace(); //если не отправлено, бот выдает ошибку
-                    }
-                    zodiak_num = -1;
+
+                    zodiak_num=-1;
                 }
                 case "Українська", "Головне Меню" -> {
                     System.out.println("Ви в головному меню");
                     language = 1;
-                    SendMessage sendMessage = new SendMessage();
-                    sendMessage.enableMarkdown(true);
-
-                    ReplyKeyboardMarkup replyKeyboardMarkup = new
-                            ReplyKeyboardMarkup();
-                    sendMessage.setReplyMarkup(replyKeyboardMarkup);
-                    replyKeyboardMarkup.setSelective(true);
-                    replyKeyboardMarkup.setResizeKeyboard(true);
-                    replyKeyboardMarkup.setOneTimeKeyboard(false);
-
-                    List<KeyboardRow> keyboard = new ArrayList<>();
-
-                    KeyboardRow keyboardFirstRow = new KeyboardRow();
-                    keyboardFirstRow.add("Гороскоп");
-                    keyboardFirstRow.add("Сумісність");
-                    KeyboardRow keyboardSecondRow = new KeyboardRow();
-                    keyboardSecondRow.add("Змінити мову/Change language");
-
-                    keyboard.add(keyboardFirstRow);
-                    keyboard.add(keyboardSecondRow);
-                    replyKeyboardMarkup.setKeyboard(keyboard);
-
-                    sendMessage.setChatId(message.getChatId().toString());
-                    sendMessage.setText("Ви в головному меню");
-                    try {
-                        execute(sendMessage); //отправка сообщения
-                    } catch (TelegramApiException e1){
-                        e1.printStackTrace(); //если не отправлено, бот выдает ошибку
-                    }
-                    zodiak_num = -2;
+                    keyboard3x1(message, "Ви в головному меню","Передбачення","Сумісність",
+                            "Запустити Новелу","Змінити мову/Change language");
+                    zodiak_num=-1;
                 }
                 case "English", "Main Menu" -> {
                     System.out.println("You are in main menu");
                     language = 2;
-                    SendMessage sendMessage = new SendMessage();
-                    sendMessage.enableMarkdown(true);
-
-                    ReplyKeyboardMarkup replyKeyboardMarkup = new
-                            ReplyKeyboardMarkup();
-                    sendMessage.setReplyMarkup(replyKeyboardMarkup);
-                    replyKeyboardMarkup.setSelective(true);
-                    replyKeyboardMarkup.setResizeKeyboard(true);
-                    replyKeyboardMarkup.setOneTimeKeyboard(false);
-
-                    List<KeyboardRow> keyboard = new ArrayList<>();
-
-                    KeyboardRow keyboardFirstRow = new KeyboardRow();
-                    keyboardFirstRow.add("Horoscope");
-                    keyboardFirstRow.add("Compatibility");
-                    KeyboardRow keyboardSecondRow = new KeyboardRow();
-                    keyboardSecondRow.add("Змінити мову/Change language");
-
-                    keyboard.add(keyboardFirstRow);
-                    keyboard.add(keyboardSecondRow);
-                    replyKeyboardMarkup.setKeyboard(keyboard);
-
-                    sendMessage.setChatId(message.getChatId().toString());
-                    sendMessage.setText("You are in main menu");
-                    try {
-                        execute(sendMessage); //отправка сообщения
-                    } catch (TelegramApiException e1){
-                        e1.printStackTrace(); //если не отправлено, бот выдает ошибку
+                    keyboard3x1(message, "You are in main menu","Prediction","Compatibility",
+                            "Run Novel","Змінити мову/Change language");
+                    zodiak_num=-1;
+                }
+                case "Передбачення", "Prediction" -> {
+                    if(language == 1) {
+                        System.out.println("Розділ Передбачень");
+                        keyboard3x1(message,"Ви в розділі передбачень. Для того щоб дізнатися своє передбачення, оберіть цікаву " +
+                                "вам тему та напишіть свій знак зодіаку українською, російською або англійською.\n" +
+                                "Наприклад: \"Терези\", \"Cancer\", \"стрелец\". ","Фінанси",
+                                "Кар'єра","Кохання","Головне Меню");
+                        zodiak_num = -1;
                     }
-                    zodiak_num = -2;
+                    if(language == 2){
+                        System.out.println("Predictions Section");
+                        keyboard3x1(message,"You are in the prediction section. In order to find out your prediction," +
+                                        " choose a topic that interests you and write your zodiac sign in Ukrainian, Russian or English.\n" +
+                                        "For example: \"Терези\", \"Cancer\", \"Стрелец\". ","Finance",
+                                "Career","Love","Main Menu");
+                        zodiak_num=-1;
+                    }
                 }
-                case "Гороскоп" -> {
-                    sendMsg(message, "Для того щоб дізнатися свій гороскоп напиши свій знак зодіаку українською, російською або англійською.\n" +
-                            "Наприклад: \"Терези\", \"Cancer\", \"стрелец\". ");
-                    zodiak_num = -2;
+                case "Сумісність", "Compatibility" -> {
+                    if (language == 1) {
+                        sendMsg(message, "Щоб дізнатися сумісність напишіть два зодіаки або імені через крапку з комою " +
+                                "(після крапки з комою ставте пробіл, Ви ж грамотна людина). \n" +
+                                "Наприклад: \"Іван, Маруся\", \"Libra, leo\". \n" +
+                                "Бажаю успіху у пророкуванні))");
+                    }
+                    if (language == 2){
+                        sendMsg(message,"To find out compatibility, write two zodiac signs or names separated by a semicolon " +
+                                "(put a space after the semicolon, you are a literate person, after all).\n" +
+                                "For example: \"Іван, Маруся\", \"Libra, leo\". \n" +
+                                "I wish you success in predicting))");
+                    }
+                    zodiak_num = -1;
                 }
-                case "Сумісність" -> {
-                    sendMsg(message,"Щоб дізнатися сумісність напишіть два зодіаки або імені через кому (після коми ставте пробіл, Ви ж грамотна людина). \n" +
-                            "Наприклад: \"Іван, Маруся\", \"Libra, leo\". \n" +
-                            "Бажаю успіху у пророкуванні))");
-                    zodiak_num = -2;
+                case "Finance", "Фінанси" -> {
+                    if(language==1){
+                        System.out.println("Обрана тематика фінансів");
+                        sendMsg(message, "Обрана тематика фінансів");
+                    }
+                    if(language==2){
+                        System.out.println("Selected topic of finance");
+                        sendMsg(message, "Selected topic of finance");
+                    }
+                    predicTheme = 1;
+                    zodiak_num=-1;
                 }
-                case "Horoscope" -> {
-                    sendMsg(message,"In order to recognize your horoscope, write your zodiac sign in Ukrainian, English or Russian.\n" +
-                            "For example: \"Терези\", \"Cancer\", \"Стрелец\". ");
-                    zodiak_num = -2;
+                case "Career", "Кар'єра" -> {
+                    if(language==1){
+                        System.out.println("Обрана тематика кар'єри");
+                        sendMsg(message, "Обрана тематика кар'єри");
+                    }
+                    if(language==2){
+                        System.out.println("Selected topic of career");
+                        sendMsg(message, "Selected topic of career");
+                    }
+                    predicTheme = 2;
+                    zodiak_num=-1;
                 }
-                case "Compability" -> {
-                    sendMsg(message,"To find out compatibility, write two zodiac signs or names separated by a comma (put a space after the comma, you are a literate person, after all).\n" +
-                            "For example: \"Іван, Маруся\", \"Libra, leo\". \n" +
-                            "I wish you success in predicting))");
-                    zodiak_num = -2;
+                case "Love", "Кохання" -> {
+                    if(language==1){
+                        System.out.println("Обрана тематика кохання");
+                        sendMsg(message, "Обрана тематика кохання");
+                    }
+                    if(language==2){
+                        System.out.println("Selected topic of love");
+                        sendMsg(message, "Selected topic of love");
+                    }
+                    predicTheme = 3;
+                    zodiak_num=-1;
+                }
+                case "Запустити Новелу", "Run Novel" -> {
+                    if (novelPos == null) {
+                        novelPos = "S";
+                        novelVarA = "Вишукане немовлятко з очами-загадками та вогнем-душею.";
+                        novelVarB = "Звичайне середньостатистичне дитятко.";
+                        novelVarC = null;
+                    }
+                    Novel novel = new Novel(novelPos, novelVarA, novelVarB, novelVarC);
+                    if (novelVarB == null ) {
+                        keyboard2x1(message, novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
+                                novelVarA);
+                    }
+                    if (novelVarB != null && novelVarC == null) {
+                        keyboard2x2(message, novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
+                                novelVarA, novelVarB);
+                    }
+                    if (novelVarC != null) {
+                        keyboard2x3(message, novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
+                                novelVarA, novelVarB, novelVarC);
+                    }
+                    zodiak_num=-1;
+                }
+                case "Почати Спочатку" -> {
+                    novelPos = "S";
+                    novelVarA = "Вишукане немовлятко з очами-загадками та вогнем-душею.";
+                    novelVarB = "Звичайне середньостатистичне дитятко.";
+                    novelVarC = null;
+                    Novel novel = new Novel(novelPos, novelVarA, novelVarB, null);
+                    keyboard2x1x1(message, novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
+                            novelVarA, novelVarB);
+                    zodiak_num=-1;
                 }
                 case "Aries", "Овен" -> {
                     System.out.println("Гороскоп для овна");
@@ -292,17 +635,124 @@ public class Bot extends TelegramLongPollingBot {
                     zodiak_num = zodiak_code[11];
                 }
                 case "Сброс" -> {
-                    language = 3;
+                    language = 0;
+                    predicTheme = 0;
                 }
-                default -> zodiak_num=-3;
+                default -> zodiak_num=-2;
             }
-            if (zodiak_num>=0) {
-                FilePredict filePredict = new FilePredict(zodiak_num);
+            if (input.equals(novelVarA) || input.equals(novelVarB) || input.equals(novelVarC)) {
+
+                System.out.println("Функція запущена");
+                System.out.println(novelPos);
+                System.out.println(novelVarA);
+                System.out.println(novelVarB);
+                System.out.println(novelVarC);
+
+                Novel novel = new Novel(novelPos, novelVarA, novelVarB, novelVarC);
+
+                //Зміна позиції в новелі у відповідності з обраним варіантом
+                if (input.equals(novelVarA) && !novelVarA.equals("Далі")) {
+                    novelPos = novel.switchPos("A",novelPos);
+                    System.out.println("Вибір А");
+                }
+                if (input.equals(novelVarB)) {
+                    novelPos = novel.switchPos("B",novelPos);
+                    System.out.println("Вибір В");
+                }
+                if (input.equals(novelVarC)) {
+                    novelPos = novel.switchPos("C",novelPos);
+                    System.out.println("Вибір С");
+                }
+                if (input.equals(novelVarA) && novelVarA.equals("Далі")) {
+                    novelPos = novel.switchPos("Next",novelPos);
+                    System.out.println("Вибір Далі");
+                }
+
+                if (novel.finalCheck(novelPos)){
+                    novelPos = "S";
+                    novel.setPos("S");
+                    novelVarA = novel.getChooseA(novelPos);
+                    novelVarB = novel.getChooseB(novelPos);
+                    novelVarC = novel.getChooseC(novelPos);
+                    keyboard2x0(message,"Ось і кінець. Дякую за проходження новели!" +
+                            " Можете спробувати почати спочатку та обрати інший шлях",
+                            "Головне Меню","Почати Спочатку");
+                    System.out.println("Кінець");
+                }
+                else {
+                    System.out.println("Не кінець");
+
+                    //В новелі є декілька випадків, коли ми повертаємося назад у виборі чи стрибаємо на іншу гілку
+                    novelPos = novel.loopCheck(novelPos);
+
+                    //Знаходимо значення для варіантів вибору
+                    novelVarA = novel.getChooseA(novelPos);
+                    novelVarB = novel.getChooseB(novelPos);
+                    novelVarC = novel.getChooseC(novelPos);
+
+                    System.out.println("Присвоєні варіанти");
+
+                    //Виведення текста необхідного варіанту та створення інтерфейсу для нових виборів
+                    if (novelVarB == null) {
+                        System.out.println("Спроба вивести клавіатуру 2x1");
+                        keyboard2x1(message, novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
+                                novelVarA);
+                        System.out.println("Клавіатуру 2x1 виведено");
+                    }
+                    if (novelVarB != null && novelVarC == null) {
+                        System.out.println("Спроба вивести клавіатуру 2x1x1");
+                        keyboard2x1x1(message, novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
+                                novelVarA, novelVarB);
+                        System.out.println("Клавіатуру 2x1x1 виведено");
+                    }
+                    if (novelVarC != null) {
+                        System.out.println("Спроба вивести клавіатуру 2x1x1x1");
+                        keyboard2x1x1x1(message, novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
+                                novelVarA, novelVarB, novelVarC);
+                        System.out.println("Клавіатуру 2x1x1x1 виведено");
+                    }
+
+                }
+
+                System.out.println(novelPos);
+                System.out.println(novelVarA);
+                System.out.println(novelVarB);
+                System.out.println(novelVarC);
+
+                zodiak_num = -1;
+            }
+
+            if (language != 2 && language != 1 && !input.equals("/start") && !input.equals("Змінити мову/Change language"))
+            {
+                sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
+                keyboard2x0(message, "Before starting to fully use the bot,please select your language. \n" +
+                                "Перед початком повноцінного використання бота, будь ласка, оберіть свою мову",
+                        "Українська","English");
+                System.out.println("Не обрана мова/Not selected language");
+                zodiak_num = -1;
+            }
+
+            if (zodiak_num>=0 && predicTheme<=0) {
+                if(language == 1){
+                    sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
+                    sendMsg(message, "Перед тим як отримати передбачення, будь ласка, оберіть його тематику");
+                    System.out.println("Не обрана тематика");
+                }
+                if(language == 2){
+                    sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
+                    sendMsg(message, "Before receiving a prediction, please select its theme");
+                    System.out.println("Not selected theme");
+                }
+            }
+
+            if (zodiak_num>=0 && predicTheme>0) {
+                FilePredict filePredict = new FilePredict(zodiak_num, language, predicTheme);
                 System.out.println(zodiak_num);
                 sendSti(message, "CAACAgQAAxkBAAEI6MhkWTmv7_8k42nNSNnu-VIFu29lEAACPgwAAp3eWVBGHn6omULBrS8E");
                 sendMsg(message, filePredict.getPredict());
             }
-            else if (zodiak_num == -3){
+
+            if (zodiak_num == -2){
                 if (language == 1) {
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                     sendMsg(message, "Помутніння в астралі... Ти мене обманюєш, хотів написати щось інше!");
@@ -312,12 +762,6 @@ public class Bot extends TelegramLongPollingBot {
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                     sendMsg(message, "Cloudiness in the astral... You are deceiving me, I wanted to write something else!!!");
                     System.out.println("Cloudiness in the astral... You are deceiving me, I wanted to write something else!!!");
-                }
-                if (language != 2 && language != 1 && !input.equals("/start"))
-                {
-                    sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
-                    sendMsg(message, "Before starting to fully use the bot,please select your language. \n" +
-                            "Перед початком повноцінного використання бота, будь ласка, оберіть свою мову");
                 }
             }
         }

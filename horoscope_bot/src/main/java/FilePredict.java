@@ -1,42 +1,63 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class FilePredict {
     private String line, zodiaknum;
-    public String message_predict;
+    private int language;
+    private int predicTheme;
+    public String message_predict = "";
 
-    public FilePredict(int zodiaknum) {
+    public FilePredict(int zodiaknum, int language, int predicTheme) {
         this.zodiaknum = String.valueOf(zodiaknum);
+        this.language = language;
+        this.predicTheme = predicTheme;
+    }
+
+    private String fileName(){
+        String fileName = "Передбачення";
+        switch (predicTheme) {
+            case 1 -> {
+                fileName = fileName + "/Фінанси";
+            }
+            case 2 -> {
+                fileName = fileName + "/Кар'єра";
+            }
+            case 3 -> {
+                fileName = fileName + "/Кохання";
+            }
+            default -> System.out.println("Помилка в тематиці");
+        }
+        switch (language) {
+            case 1 -> {
+                fileName = fileName + "/укр";
+            }
+            case 2 -> {
+                fileName = fileName + "/eng";
+            }
+            default -> System.out.println("Помилка в мові");
+        }
+        fileName = fileName + "/" + zodiaknum + ".txt";
+        return fileName;
     }
 
     public String getPredict(){
-        BufferedReader br = null;
-        StringBuilder sb = new StringBuilder();
-
+        FileReader fr = null;
         try {
-            File file = new File("main_predict.txt");
-            file.createNewFile();
-            br = new BufferedReader( new FileReader(("main_predict.txt")));
-            String line;
-            List<String> lines = new ArrayList<>();
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-                lines.add(line);
+            fr = new FileReader((fileName()));
+            Scanner scan = new Scanner(fr);
+            while (scan.hasNextLine()) {
+                message_predict = message_predict + scan.nextLine();
             }
-//            message_predict = sb.toString();
-//            for (String l: lines) {
-//                System.out.println("Из списка - " + l);
-//            }
-            message_predict=lines.get(Integer.parseInt(zodiaknum));
-            System.out.println(lines.get(Integer.parseInt(zodiaknum)));
+            System.out.println(message_predict);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
         finally {
             try {
-                br.close();
+                fr.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
