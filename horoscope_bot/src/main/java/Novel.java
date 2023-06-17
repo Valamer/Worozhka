@@ -4,13 +4,8 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Novel {
-    private String pos;
 
-    public Novel (String novelPos, String novelVarA, String novelVarB, String novelVarC){
-        this.pos = novelPos;
-    }
-
-    public String switchPos (String choose, String novelPos) {
+    public static String switchPos (String choose, String novelPos) {
         String newPos = novelPos;
 
         if(!choose.equals("Next")) {
@@ -43,7 +38,7 @@ public class Novel {
         }
     }
 
-    public String loopCheck (String novelPos) {
+    public static String loopCheck (String novelPos) {
         switch (novelPos) {
             case "A-B-A-B-3" -> {
                 return "A-B-A-3";
@@ -61,7 +56,7 @@ public class Novel {
         }
     }
 
-    public String getChooseA (String novelPos) {
+    public static String getChooseA (String novelPos) {
         switch (novelPos){
             case "S" -> {
                 return "Вишукане немовлятко з очами-загадками та вогнем-душею";
@@ -142,7 +137,7 @@ public class Novel {
             default -> {return "Далі";}
         }
     }
-    public String getChooseB (String novelPos) {
+    public static String getChooseB (String novelPos) {
         switch (novelPos){
             case "S" -> {
                 return "Звичайне середньостатистичне дитятко";
@@ -222,7 +217,7 @@ public class Novel {
             default -> {return null;}
         }
     }
-    public String getChooseC (String novelPos) {
+    public static String getChooseC (String novelPos) {
         switch (novelPos){
             case "A-A-A-2" -> {
                 return "Виплигути у вікнооо";
@@ -234,7 +229,7 @@ public class Novel {
         }
     }
 
-    public String mainText (String novelPos) {
+    public static String mainText (String novelPos) {
         switch (novelPos) {
             case "S" -> {
                 return "Новела “Ворожка Розалінда. Закляття долі.”\n" +
@@ -1208,7 +1203,7 @@ public class Novel {
         return null;
     }
 
-    public boolean finalCheck (String novelPos) {
+    public static boolean finalCheck (String novelPos) {
         switch (novelPos){
             case "A-A-A-A-4", "B-B-C-B-A-4", "B-B-B-B-10",
                     "B-B-B-A-7", "B-B-A-A-4", "B-A-B-B-17",
@@ -1222,13 +1217,6 @@ public class Novel {
             }
             default -> {return false;}
         }
-    }
-
-    public String getPos () {
-        return pos;
-    }
-    public void setPos (String pos){
-        this.pos = pos;
     }
 
 }

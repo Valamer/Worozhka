@@ -1,15 +1,13 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class FilePredict {
     private String line, zodiaknum;
-    private int language;
-    private int predicTheme;
+    private String language;
+    private String predicTheme;
     public String message_predict = "";
 
-    public FilePredict(int zodiaknum, int language, int predicTheme) {
+    public FilePredict(int zodiaknum, String language, String predicTheme) {
         this.zodiaknum = String.valueOf(zodiaknum);
         this.language = language;
         this.predicTheme = predicTheme;
@@ -18,22 +16,22 @@ public class FilePredict {
     private String fileName(){
         String fileName = "Передбачення";
         switch (predicTheme) {
-            case 1 -> {
+            case "finance" -> {
                 fileName = fileName + "/Фінанси";
             }
-            case 2 -> {
+            case "career" -> {
                 fileName = fileName + "/Кар'єра";
             }
-            case 3 -> {
+            case "love" -> {
                 fileName = fileName + "/Кохання";
             }
             default -> System.out.println("Помилка в тематиці");
         }
         switch (language) {
-            case 1 -> {
+            case "ukr" -> {
                 fileName = fileName + "/укр";
             }
-            case 2 -> {
+            case "eng" -> {
                 fileName = fileName + "/eng";
             }
             default -> System.out.println("Помилка в мові");

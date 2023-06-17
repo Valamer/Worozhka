@@ -13,12 +13,9 @@ import java.util.ArrayList;
 
 public class Bot extends TelegramLongPollingBot {
     private int startday;
-    private int language;
-    private int predicTheme;
+    private String language;
+    private String predicTheme;
     private String novelPos;
-    private String novelVarA;
-    private String novelVarB;
-    private String novelVarC;
     private int[] zodiak_code = get_zodiak_code();
 
     public void setStartday(int startday) {
@@ -45,6 +42,19 @@ public class Bot extends TelegramLongPollingBot {
             execute(sendMessage); //отправка сообщения
         } catch (TelegramApiException e){
             e.printStackTrace(); //если не отправлено, бот выдает ошибку
+        }
+    }
+    public void sendSti(Message message, String stickerId){
+        InputFile sticker = new InputFile();
+        sticker.setMedia(stickerId);
+        SendSticker sendSticker = new SendSticker();
+        sendSticker.setChatId(message.getChatId().toString());
+        sendSticker.setSticker(sticker);
+
+        try {
+            execute(sendSticker);
+        } catch (TelegramApiException e){
+            e.printStackTrace();
         }
     }
     public void keyboard2x0(Message message,String text, String keyOne, String keyTwo){
@@ -370,19 +380,6 @@ public class Bot extends TelegramLongPollingBot {
             e1.printStackTrace(); //если не отправлено, бот выдает ошибку
         }
     }
-    public void sendSti(Message message, String stickerId){
-        InputFile sticker = new InputFile();
-        sticker.setMedia(stickerId);
-        SendSticker sendSticker = new SendSticker();
-        sendSticker.setChatId(message.getChatId().toString());
-        sendSticker.setSticker(sticker);
-
-        try {
-            execute(sendSticker);
-        } catch (TelegramApiException e){
-            e.printStackTrace();
-        }
-    }
     public int[] get_zodiak_code(){
         GetMassive getMassive = new GetMassive();
         return getMassive.getZodiak_code();
@@ -392,6 +389,20 @@ public class Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
         System.out.println(message.getChat().getFirstName() + " " + message.getChat().getLastName() + " воспользовался ботом");
+
+        if (!MySQLCommands.checkUser(message.getChatId())) {
+            System.out.println("Новий користувач - " + message.getChatId());
+            MySQLCommands.addUser(message.getChatId());
+        }
+
+        language = MySQLCommands.getLanguage(message.getChatId());
+        predicTheme = MySQLCommands.getPredicTheme(message.getChatId());
+        novelPos = MySQLCommands.getNovelPos(message.getChatId());
+
+        System.out.println(language);
+        System.out.println(predicTheme);
+        System.out.println(novelPos);
+
         String[] massive;
         String input = message.getText();
         input = input.substring(0, 1).toUpperCase() + input.substring(1);
@@ -412,17 +423,17 @@ public class Bot extends TelegramLongPollingBot {
             System.out.println("Совместимость " + first + " и " + second);
             if (first.equals(second))
             {
-                if (language == 1)
+                if (language.equals("ukr"))
                 {
                     sendSti(message, "CAACAgQAAxkBAAEI6MhkWTmv7_8k42nNSNnu-VIFu29lEAACPgwAAp3eWVBGHn6omULBrS8E");
                     sendMsg(message, "Вы лохи, не подходите друг друг");
                 }
-                if (language == 2)
+                if (language.equals("eng"))
                 {
                     sendSti(message, "CAACAgQAAxkBAAEI6MhkWTmv7_8k42nNSNnu-VIFu29lEAACPgwAAp3eWVBGHn6omULBrS8E");
                     sendMsg(message, "You fools, don't approach each other");
                 }
-                if (language != 1 && language != 2  ){
+                if (language.equals("null")){
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                     keyboard2x0(message, "Before starting to fully use the bot,please select your language. \n" +
                             "Перед початком повноцінного використання бота, будь ласка, оберіть свою мову",
@@ -431,15 +442,15 @@ public class Bot extends TelegramLongPollingBot {
                 }
             }
             else {
-                if (language == 1) {
+                if (language.equals("ukr")) {
                     sendSti(message, "CAACAgQAAxkBAAEI6MhkWTmv7_8k42nNSNnu-VIFu29lEAACPgwAAp3eWVBGHn6omULBrS8E");
                     sendMsg(message, "Ваша совместимость:" + rnd.nextInt(-100, 100) + "%");
                 }
-                if (language == 2) {
+                if (language.equals("eng")) {
                     sendSti(message, "CAACAgQAAxkBAAEI6MhkWTmv7_8k42nNSNnu-VIFu29lEAACPgwAAp3eWVBGHn6omULBrS8E");
                     sendMsg(message, "Your compatibility:" + rnd.nextInt(-100, 100) + "%");
                 }
-                if (language != 1 && language != 2){
+                if (language.equals("null")){
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                     keyboard2x0(message, "Before starting to fully use the bot,please select your language. \n" +
                                     "Перед початком повноцінного використання бота, будь ласка, оберіть свою мову",
@@ -473,20 +484,22 @@ public class Bot extends TelegramLongPollingBot {
                 }
                 case "Українська", "Головне Меню" -> {
                     System.out.println("Ви в головному меню");
-                    language = 1;
+                    language = "ukr";
                     keyboard3x1(message, "Ви в головному меню","Передбачення","Сумісність",
                             "Запустити Новелу","Змінити мову/Change language");
+                    MySQLCommands.updateLanguage(language,message.getChatId());
                     zodiak_num=-1;
                 }
                 case "English", "Main Menu" -> {
                     System.out.println("You are in main menu");
-                    language = 2;
+                    language = "eng";
                     keyboard3x1(message, "You are in main menu","Prediction","Compatibility",
                             "Run Novel","Змінити мову/Change language");
+                    MySQLCommands.updateLanguage(language,message.getChatId());
                     zodiak_num=-1;
                 }
                 case "Передбачення", "Prediction" -> {
-                    if(language == 1) {
+                    if(language.equals("ukr")) {
                         System.out.println("Розділ Передбачень");
                         keyboard3x1(message,"Ви в розділі передбачень. Для того щоб дізнатися своє передбачення, оберіть цікаву " +
                                 "вам тему та напишіть свій знак зодіаку українською, російською або англійською.\n" +
@@ -494,7 +507,7 @@ public class Bot extends TelegramLongPollingBot {
                                 "Кар'єра","Кохання","Головне Меню");
                         zodiak_num = -1;
                     }
-                    if(language == 2){
+                    if(language.equals("eng")){
                         System.out.println("Predictions Section");
                         keyboard3x1(message,"You are in the prediction section. In order to find out your prediction," +
                                         " choose a topic that interests you and write your zodiac sign in Ukrainian, Russian or English.\n" +
@@ -504,13 +517,13 @@ public class Bot extends TelegramLongPollingBot {
                     }
                 }
                 case "Сумісність", "Compatibility" -> {
-                    if (language == 1) {
+                    if (language.equals("ukr")) {
                         sendMsg(message, "Щоб дізнатися сумісність напишіть два зодіаки або імені через крапку з комою " +
                                 "(після крапки з комою ставте пробіл, Ви ж грамотна людина). \n" +
                                 "Наприклад: \"Іван, Маруся\", \"Libra, leo\". \n" +
                                 "Бажаю успіху у пророкуванні))");
                     }
-                    if (language == 2){
+                    if (language.equals("eng")){
                         sendMsg(message,"To find out compatibility, write two zodiac signs or names separated by a semicolon " +
                                 "(put a space after the semicolon, you are a literate person, after all).\n" +
                                 "For example: \"Іван, Маруся\", \"Libra, leo\". \n" +
@@ -519,71 +532,74 @@ public class Bot extends TelegramLongPollingBot {
                     zodiak_num = -1;
                 }
                 case "Finance", "Фінанси" -> {
-                    if(language==1){
+                    if(language.equals("ukr")){
                         System.out.println("Обрана тематика фінансів");
                         sendMsg(message, "Обрана тематика фінансів");
                     }
-                    if(language==2){
+                    if(language.equals("eng")){
                         System.out.println("Selected topic of finance");
                         sendMsg(message, "Selected topic of finance");
                     }
-                    predicTheme = 1;
+                    predicTheme = "finance";
+                    MySQLCommands.updatePredicTheme(predicTheme, message.getChatId());
                     zodiak_num=-1;
                 }
                 case "Career", "Кар'єра" -> {
-                    if(language==1){
+                    if(language.equals("ukr")){
                         System.out.println("Обрана тематика кар'єри");
                         sendMsg(message, "Обрана тематика кар'єри");
                     }
-                    if(language==2){
+                    if(language.equals("eng")){
                         System.out.println("Selected topic of career");
                         sendMsg(message, "Selected topic of career");
                     }
-                    predicTheme = 2;
+                    predicTheme = "career";
+                    MySQLCommands.updatePredicTheme(predicTheme, message.getChatId());
                     zodiak_num=-1;
                 }
                 case "Love", "Кохання" -> {
-                    if(language==1){
+                    if(language.equals("ukr")){
                         System.out.println("Обрана тематика кохання");
                         sendMsg(message, "Обрана тематика кохання");
                     }
-                    if(language==2){
+                    if(language.equals("eng")){
                         System.out.println("Selected topic of love");
                         sendMsg(message, "Selected topic of love");
                     }
-                    predicTheme = 3;
+                    predicTheme = "love";
+                    MySQLCommands.updatePredicTheme(predicTheme, message.getChatId());
                     zodiak_num=-1;
                 }
                 case "Запустити Новелу", "Run Novel" -> {
-                    if (novelPos == null) {
+                    if (novelPos.equals("null")) {
                         novelPos = "S";
-                        novelVarA = "Вишукане немовлятко з очами-загадками та вогнем-душею.";
-                        novelVarB = "Звичайне середньостатистичне дитятко.";
-                        novelVarC = null;
                     }
-                    Novel novel = new Novel(novelPos, novelVarA, novelVarB, novelVarC);
+
+                    String novelVarA = Novel.getChooseA(novelPos);
+                    String novelVarB = Novel.getChooseB(novelPos);
+                    String novelVarC = Novel.getChooseC(novelPos);
+
+
                     if (novelVarB == null ) {
-                        keyboard2x1(message, novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
+                        keyboard2x1(message, Novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
                                 novelVarA);
                     }
                     if (novelVarB != null && novelVarC == null) {
-                        keyboard2x2(message, novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
+                        keyboard2x2(message, Novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
                                 novelVarA, novelVarB);
                     }
                     if (novelVarC != null) {
-                        keyboard2x3(message, novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
+                        keyboard2x3(message, Novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
                                 novelVarA, novelVarB, novelVarC);
                     }
+                    MySQLCommands.updateNovelPos(novelPos, message.getChatId());
                     zodiak_num=-1;
                 }
                 case "Почати Спочатку" -> {
                     novelPos = "S";
-                    novelVarA = "Вишукане немовлятко з очами-загадками та вогнем-душею.";
-                    novelVarB = "Звичайне середньостатистичне дитятко.";
-                    novelVarC = null;
-                    Novel novel = new Novel(novelPos, novelVarA, novelVarB, null);
-                    keyboard2x1x1(message, novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
-                            novelVarA, novelVarB);
+                    keyboard2x1x1(message, Novel.mainText(novelPos),"Головне Меню","Почати Спочатку",
+                            Novel.getChooseA(novelPos), Novel.getChooseB(novelPos));
+                    MySQLCommands.updateNovelPos(novelPos, message.getChatId());
                     zodiak_num=-1;
                 }
                 case "Aries", "Овен" -> {
@@ -635,12 +651,20 @@ public class Bot extends TelegramLongPollingBot {
                     zodiak_num = zodiak_code[11];
                 }
                 case "Сброс" -> {
-                    language = 0;
-                    predicTheme = 0;
+                    language = "null";
+                    predicTheme = "null";
+                    MySQLCommands.updateLanguage(language, message.getChatId());
+                    MySQLCommands.updatePredicTheme(predicTheme, message.getChatId());
                 }
                 default -> zodiak_num=-2;
             }
-            if (input.equals(novelVarA) || input.equals(novelVarB) || input.equals(novelVarC)) {
+
+            if (input.equals(Novel.getChooseA(novelPos)) || input.equals(Novel.getChooseB(novelPos)) ||
+                    input.equals(Novel.getChooseC(novelPos))) {
+
+                String novelVarA = Novel.getChooseA(novelPos);
+                String novelVarB = Novel.getChooseB(novelPos);
+                String novelVarC = Novel.getChooseC(novelPos);
 
                 System.out.println("Функція запущена");
                 System.out.println(novelPos);
@@ -648,32 +672,26 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(novelVarB);
                 System.out.println(novelVarC);
 
-                Novel novel = new Novel(novelPos, novelVarA, novelVarB, novelVarC);
-
                 //Зміна позиції в новелі у відповідності з обраним варіантом
                 if (input.equals(novelVarA) && !novelVarA.equals("Далі")) {
-                    novelPos = novel.switchPos("A",novelPos);
+                    novelPos = Novel.switchPos("A",novelPos);
                     System.out.println("Вибір А");
                 }
                 if (input.equals(novelVarB)) {
-                    novelPos = novel.switchPos("B",novelPos);
+                    novelPos = Novel.switchPos("B",novelPos);
                     System.out.println("Вибір В");
                 }
                 if (input.equals(novelVarC)) {
-                    novelPos = novel.switchPos("C",novelPos);
+                    novelPos = Novel.switchPos("C",novelPos);
                     System.out.println("Вибір С");
                 }
                 if (input.equals(novelVarA) && novelVarA.equals("Далі")) {
-                    novelPos = novel.switchPos("Next",novelPos);
+                    novelPos = Novel.switchPos("Next",novelPos);
                     System.out.println("Вибір Далі");
                 }
 
-                if (novel.finalCheck(novelPos)){
+                if (Novel.finalCheck(novelPos)){
                     novelPos = "S";
-                    novel.setPos("S");
-                    novelVarA = novel.getChooseA(novelPos);
-                    novelVarB = novel.getChooseB(novelPos);
-                    novelVarC = novel.getChooseC(novelPos);
                     keyboard2x0(message,"Ось і кінець. Дякую за проходження новели!" +
                             " Можете спробувати почати спочатку та обрати інший шлях",
                             "Головне Меню","Почати Спочатку");
@@ -683,31 +701,31 @@ public class Bot extends TelegramLongPollingBot {
                     System.out.println("Не кінець");
 
                     //В новелі є декілька випадків, коли ми повертаємося назад у виборі чи стрибаємо на іншу гілку
-                    novelPos = novel.loopCheck(novelPos);
+                    novelPos = Novel.loopCheck(novelPos);
 
                     //Знаходимо значення для варіантів вибору
-                    novelVarA = novel.getChooseA(novelPos);
-                    novelVarB = novel.getChooseB(novelPos);
-                    novelVarC = novel.getChooseC(novelPos);
+                    novelVarA = Novel.getChooseA(novelPos);
+                    novelVarB = Novel.getChooseB(novelPos);
+                    novelVarC = Novel.getChooseC(novelPos);
 
                     System.out.println("Присвоєні варіанти");
 
                     //Виведення текста необхідного варіанту та створення інтерфейсу для нових виборів
                     if (novelVarB == null) {
                         System.out.println("Спроба вивести клавіатуру 2x1");
-                        keyboard2x1(message, novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
+                        keyboard2x1(message, Novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
                                 novelVarA);
                         System.out.println("Клавіатуру 2x1 виведено");
                     }
                     if (novelVarB != null && novelVarC == null) {
                         System.out.println("Спроба вивести клавіатуру 2x1x1");
-                        keyboard2x1x1(message, novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
+                        keyboard2x1x1(message, Novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
                                 novelVarA, novelVarB);
                         System.out.println("Клавіатуру 2x1x1 виведено");
                     }
                     if (novelVarC != null) {
                         System.out.println("Спроба вивести клавіатуру 2x1x1x1");
-                        keyboard2x1x1x1(message, novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
+                        keyboard2x1x1x1(message, Novel.mainText(novelPos), "Головне Меню", "Почати Спочатку",
                                 novelVarA, novelVarB, novelVarC);
                         System.out.println("Клавіатуру 2x1x1x1 виведено");
                     }
@@ -718,11 +736,14 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(novelVarA);
                 System.out.println(novelVarB);
                 System.out.println(novelVarC);
+                MySQLCommands.updateNovelPos(novelPos, message.getChatId());
 
                 zodiak_num = -1;
             }
 
-            if (language != 2 && language != 1 && !input.equals("/start") && !input.equals("Змінити мову/Change language"))
+            if (language.equals("null") &&
+                    !input.equals("/start") && !input.equals("Змінити мову/Change language")
+                )
             {
                 sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                 keyboard2x0(message, "Before starting to fully use the bot,please select your language. \n" +
@@ -732,20 +753,20 @@ public class Bot extends TelegramLongPollingBot {
                 zodiak_num = -1;
             }
 
-            if (zodiak_num>=0 && predicTheme<=0) {
-                if(language == 1){
+            if (zodiak_num>=0 && predicTheme.equals("null")) {
+                if(language.equals("ukr")){
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                     sendMsg(message, "Перед тим як отримати передбачення, будь ласка, оберіть його тематику");
                     System.out.println("Не обрана тематика");
                 }
-                if(language == 2){
+                if(language.equals("eng")){
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                     sendMsg(message, "Before receiving a prediction, please select its theme");
                     System.out.println("Not selected theme");
                 }
             }
 
-            if (zodiak_num>=0 && predicTheme>0) {
+            if (zodiak_num>=0 && !predicTheme.equals("null")) {
                 FilePredict filePredict = new FilePredict(zodiak_num, language, predicTheme);
                 System.out.println(zodiak_num);
                 sendSti(message, "CAACAgQAAxkBAAEI6MhkWTmv7_8k42nNSNnu-VIFu29lEAACPgwAAp3eWVBGHn6omULBrS8E");
@@ -753,12 +774,12 @@ public class Bot extends TelegramLongPollingBot {
             }
 
             if (zodiak_num == -2){
-                if (language == 1) {
+                if (language.equals("ukr")) {
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                     sendMsg(message, "Помутніння в астралі... Ти мене обманюєш, хотів написати щось інше!");
                     System.out.println("Помутніння в астралі... Ти мене обманюєш, хотів написати щось інше!");
                 }
-                if (language == 2) {
+                if (language.equals("eng")) {
                     sendSti(message, "CAACAgIAAxkBAAEI6PlkWUtwqhGQu_3q5RynqbDMXoCP9AACYhUAAiK6eUnZlk2-IN3yIS8E");
                     sendMsg(message, "Cloudiness in the astral... You are deceiving me, I wanted to write something else!!!");
                     System.out.println("Cloudiness in the astral... You are deceiving me, I wanted to write something else!!!");
